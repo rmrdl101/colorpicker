@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Copy to Clipboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .color-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Click a Color to Copy to Clipboard</h1>
+
+    <div id="notification"></div>
+
+    <button class="color-button" id="yellow-button" data-color="YELLOW">YELLOW</button>
+    <button class="color-button" id="black-button" data-color="BLACK">BLACK</button>
+    <button class="color-button" id="gray-button" data-color="GRAY">GRAY</button>
+    <button class="color-button" id="orange-button" data-color="ORANGE">ORANGE</button>
+    <button class="color-button" id="white-button" data-color="WHITE">WHITE</button>
+    <button class="color-button" id="brown-button" data-color="BROWN">BROWN</button>
+    <button class="color-button" id="blue-button" data-color="BLUE">BLUE</button>
+    <button class="color-button" id="purple-button" data-color="PURPLE">PURPLE</button>
+    <button class="color-button" id="red-button" data-color="RED">RED</button>
+    <button class="color-button" id="green-button" data-color="GREEN">GREEN</button>
+
+    <script>
+        const colorButtons = document.querySelectorAll('.color-button');
+        const notification = document.getElementById('notification');
+
+        colorButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const colorValue = button.getAttribute('data-color');
+                copyToClipboard(colorValue);
+                showNotification(colorValue);
+            });
+        });
+
+        function copyToClipboard(value) {
+            const textarea = document.createElement('textarea');
+            textarea.value = value;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+
+        function showNotification(value) {
+            notification.innerText = `Copied ${value} to clipboard!`;
+            setTimeout(() => {
+                notification.innerText = '';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
